@@ -1,0 +1,29 @@
+{
+    "name": "lasallecms/knowledgebase",
+    "description": "Knowledge Base package for the LaSalle Content Management System.",
+    "homepage": "http://lasallecms.com",
+    "keywords": ["laravel", "laravel5", "Knowledge Base", "LaSalleCMS", "South LaSalle", "Bob Bloom"],
+    "license":"GPL-3.0",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Bob Bloom",
+            "email": "info@southlasalle.com",
+            "role": "Developer",
+            "homepage": "http://southlasalle.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lasallecms\\Knowledgebase\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
+
+
+
+
