@@ -52,7 +52,8 @@ namespace Lasallecms\Knowledgebase\Listeners\Kb_items;
 
 
 // LaSalle Software
-use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
+//use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
+use Lasallecms\Knowledgebase\Repositories\KnowledgebaseRepository;
 use Lasallecms\Lasallecmsapi\FormProcessing\BaseFormProcessing;
 
 
@@ -92,7 +93,7 @@ class CreateKb_itemFormProcessing extends BaseFormProcessing
      *
      * @var string
      */
-    protected $namespaceClassnameModel = "Lasallecms\Kb\Models\Kb_item";
+    protected $namespaceClassnameModel = "Lasallecms\Knowledgebase\Models\Kb_item";
 
 
 
@@ -107,7 +108,7 @@ class CreateKb_itemFormProcessing extends BaseFormProcessing
      *
      * @param Lasallecms\Lasallecmsapi\Repositories\BaseRepository
      */
-    public function __construct(BaseRepository $repository)
+    public function __construct(KnowledgebaseRepository $repository)
     {
         $this->repository = $repository;
 
@@ -127,6 +128,13 @@ class CreateKb_itemFormProcessing extends BaseFormProcessing
         $data = (array) $createCommand;
 
 
+
+        // AH, some custom action here! There's some special handling that is unique to the knowledge base.
+        // So, let's get that done now, so all the fields then undergo the usual processing
+        $data = $this->repository->specialDataHandling($data);
+
+
+
         // Sanitize
         $data = $this->sanitize($data, $this->type);
 
@@ -137,7 +145,6 @@ class CreateKb_itemFormProcessing extends BaseFormProcessing
             // Prepare the response array, and then return to the form with error messages
             return $this->prepareResponseArray('validation_failed', 500, $data, $this->validate($data, $this->type));
         }
-
 
         // Even though we already sanitized the data, we further "wash" the data
         $data = $this->wash($data);

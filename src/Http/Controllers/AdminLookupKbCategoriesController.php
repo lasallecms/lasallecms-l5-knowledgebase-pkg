@@ -73,7 +73,7 @@ class AdminLookupKbCategoriesController extends AdminLookupTableBaseController
     /*
      * This lookup table's model class namespace
      */
-    public $model_namespace      = "Lasallecrm\Knowledgebase\Models";
+    public $model_namespace      = "Lasallecms\Knowledgebase\Models";
 
     /*
      * This lookup table's model class

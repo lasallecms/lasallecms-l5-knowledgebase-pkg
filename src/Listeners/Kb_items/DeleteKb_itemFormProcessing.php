@@ -90,7 +90,7 @@ class DeleteKb_itemFormProcessing extends BaseFormProcessing
      *
      * @var string
      */
-    protected $namespaceClassnameModel = "Lasallecms\Kb\Models\Kb_item";
+    protected $namespaceClassnameModel = "Lasallecms\Knowledgebase\Models\Kb_item";
 
 
     ///////////////////////////////////////////////////////////////////

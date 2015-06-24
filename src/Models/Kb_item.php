@@ -85,7 +85,7 @@ class Kb_item extends BaseModel
      *
      * @var string
      */
-    public $model_namespace = "Lasallecrm\Knowledgebase\Models";
+    public $model_namespace = "Lasallecms\Knowledgebase\Models";
 
     /*
      * Model's class.
@@ -132,7 +132,7 @@ class Kb_item extends BaseModel
      *
      * @var string
      */
-    public $namespace_formprocessor = 'Lasallecrm\Knowledgebase\Listeners\Kb_items';
+    public $namespace_formprocessor = 'Lasallecms\Knowledgebase\Listeners\Kb_items';
 
     /*
      * Class name of the CREATE Form Processor command
@@ -255,10 +255,18 @@ class Kb_item extends BaseModel
             'index_align'           => 'center',
         ],
         [
-            'name'                  => 'title',
-            'alternate_form_name'   => 'KB Name',
+            'name'                  => 'link',
             'type'                  => 'varchar',
-            'info'                  => 'Give this KB item a title. If this KB items happens to be a link, make sure the link is specified below, and leave this one blank to fetch the link\'s <title> tag',
+            'info'                  => 'Optional.',
+            'index_skip'            => false,
+            'index_align'           => 'center',
+            'persist_wash'          => 'link',
+        ],
+        [
+            'name'                  => 'title',
+            'alternate_form_name'   => 'Name',
+            'type'                  => 'varchar',
+            'info'                  => "Give this KB item a title. If this KB items happens to be a link, make sure the link is specified above, and leave this one blank to fetch the link's title tag",
             'index_skip'            => false,
             'index_align'           => 'left',
             'persist_wash'          => 'title',
@@ -266,7 +274,7 @@ class Kb_item extends BaseModel
         [
             'name'                  => 'description',
             'type'                  => 'text-no-editor',
-            'info'                  => 'Description is optional. If this KB items happens to be a link, make sure the link is specified below, and leave this one blank to fetch the link\'s <meta-description> tag',
+            'info'                  => "Description is optional. If this KB items happens to be a link, make sure the link is specified below, and leave this one blank to fetch the link's meta-description tag",
             'index_skip'            => true,
         ],
         [
@@ -275,18 +283,6 @@ class Kb_item extends BaseModel
             'info'                  => 'Optional.',
             'index_skip'            => true,
             'persist_wash'          => 'content',
-        ],
-
-        //*** OH, GREAT! NEED A LINK IN Lasallecms\Lasallecmsapi\Repositories\BaseRepository.php LINE 900-ish ****
-
-
-        [
-            'name'                  => 'link',
-            'type'                  => 'varchar',
-            'info'                  => 'Optional.',
-            'index_skip'            => false,
-            'index_align'           => 'center',
-            'persist_wash'          => 'link',
         ],
     ];
 

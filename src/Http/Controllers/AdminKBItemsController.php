@@ -37,8 +37,18 @@ namespace Lasallecms\Knowledgebase\Http\Controllers;
  */
 
 // LaSalle Software
+use Lasallecms\Knowledgebase\Repositories\KnowledgebaseRepository;
 use Lasallecms\Formhandling\AdminFormhandling\AdminFormBaseController;
-use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
+//use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
+use Lasallecms\Helpers\HTML\HTMLHelper;
+
+// Laravel Facades
+use Illuminate\Support\Facades\Session;
+
+// Third party classes
+use Collective\Html\FormFacade as Form;
+
+
 
 
 ///////////////////////////////////////////////////////////////////
@@ -59,7 +69,7 @@ class AdminKBItemsController extends AdminFormBaseController
      * @param  Lasallecms\Lasallecmsapi\Repositories\BaseRepository
      * @return void
      */
-    public function __construct(Model $model, BaseRepository $repository)
+    public function __construct(Model $model, KnowledgebaseRepository $repository)
     {
         // execute AdminController's construct method first in order to run the middleware
         parent::__construct();
@@ -72,5 +82,60 @@ class AdminKBItemsController extends AdminFormBaseController
 
         // Inject the relevant model into the repository
         $this->repository->injectModelIntoRepository($this->model->model_namespace."\\".$this->model->model_class);
+    }
+
+
+
+    /**
+     * Display a listing
+     * GET /{table}/index
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        // Is this user allowed to do this?
+        if (!$this->repository->isUserAllowed('index'))
+        {
+            Session::flash('status_code', 400 );
+            $message = "You are not allowed to view the list of Knowledge Base items";
+            Session::flash('message', $message);
+            return view('formhandling::warnings/' . config('lasallecmsadmin.admin_template_name') . '/user_not_allowed', [
+                'package_title'        => 'LaSalleCMS',
+                'table_type_plural'    => 'knowledge base',
+                'table_type_singular'  => 'knowledge base',
+                'resource_route_name'  => 'AdminKBItemsController',
+                'HTMLHelper'           => HTMLHelper::class,
+            ]);
+        }
+
+
+        // If this user has locked records for this table, then unlock 'em
+        $this->repository->unlockMyRecords($this->model->table);
+
+        return view('knowledgebase::' . config('lasallecmsadmin.admin_template_name') . '/index',
+            [
+                'records'                      => $this->repository->listItemsByCategory(),
+                'HTMLHelper'                   => HTMLHelper::class,
+                'Form'                         => Form::class,
+            ]);
+
+        return view('formhandling::adminformhandling/' . config('lasallecmsadmin.admin_template_name') . '/index',
+            [
+                'display_the_view_button'      => $this->model->display_the_view_button,
+                'records'                      => $this->repository->getAll(),
+                'repository'                   => $this->repository,
+                'package_title'                => $this->model->package_title,
+                'table_name'                   => $this->model->table,
+                'model_class'                  => $this->model->model_class,
+                'resource_route_name'          => $this->model->resource_route_name,
+                'field_list'                   => $this->model->field_list,
+                'suppress_delete_button_when_one_record' => $this->model->suppress_delete_button_when_one_record,
+                'DatesHelper'                  => DatesHelper::class,
+                'HTMLHelper'                   => HTMLHelper::class,
+                'carbon'                       => Carbon::class,
+                'Config'                       => Config::class,
+                'Form'                         => Form::class,
+            ]);
     }
 }
