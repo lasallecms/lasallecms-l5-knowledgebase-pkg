@@ -1,12 +1,9 @@
 # CHANGE LOG
 
-## NEXT: VERSION 0.9.0 (07/01/2015)
-
-### Add
-* initial setup
+##VERSION 1.0 (07/31/2015)
 
 ### All GitHub issues for this version
-* [https://github.com/lasallecms/lasallecms-l5-knowledgebase-pkg/issues?q=is%3Aissue+milestone%3A%22Version+0.9.0%22](https://github.com/lasallecms/lasallecms-l5-knowledgebase-pkg/issues?q=is%3Aissue+milestone%3A%22Version+0.9.0%22)
+* [https://github.com/lasallecms/lasallecms-l5-knowledgebase-pkg/milestones/Version%201.0](https://github.com/lasallecms/lasallecms-l5-knowledgebase-pkg/milestones/Version%201.0)
 
 
 

@@ -27,7 +27,6 @@ namespace Lasallecms\Knowledgebase\Listeners\Kb_items;
  *
  *
  * @package    Knowledge Base package for the LaSalle Content Management System
- * @version    1.0.0
  * @link       http://LaSalleCMS.com
  * @copyright  (c) 2015, The South LaSalle Trading Corporation
  * @license    http://www.gnu.org/licenses/gpl-3.0.html
