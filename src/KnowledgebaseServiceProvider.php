@@ -62,6 +62,9 @@ class KnowledgebaseServiceProvider extends ServiceProvider {
     {
         //$this->setupConfiguration();
 
+        $this->setupMigrations();
+        $this->setupSeeds();
+
         $this->setupRoutes($this->app->router);
 
         //$this->setupTranslations();
@@ -82,6 +85,36 @@ class KnowledgebaseServiceProvider extends ServiceProvider {
 
         $this->publishes([
             $configuration => config_path('knowledgebase.php'),
+        ]);
+    }
+
+
+    /**
+     * Setup the Migrations.
+     *
+     * @return void
+     */
+    protected function setupMigrations()
+    {
+        $migrations = realpath(__DIR__.'/../database/migrations');
+
+        $this->publishes([
+            $migrations    => $this->app->databasePath() . '/migrations',
+        ]);
+    }
+
+
+    /**
+     * Setup the Seeds.
+     *
+     * @return void
+     */
+    protected function setupSeeds()
+    {
+        $seeds = realpath(__DIR__.'/../database/seeds');
+
+        $this->publishes([
+            $seeds    => $this->app->databasePath() . '/seeds',
         ]);
     }
 
