@@ -144,7 +144,6 @@ class CreateKnowledgebaseTables extends Migration
         ///////////////////////////////////////////////////////////////////////
 
         Schema::table('kb_items', function($table){
-            $table->dropIndex('kb_items_title_unique');
             $table->dropForeign('kb_items_kb_category_id_foreign');
             $table->dropForeign('kb_items_created_by_foreign');
             $table->dropForeign('kb_items_updated_by_foreign');
