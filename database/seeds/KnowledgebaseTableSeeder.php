@@ -43,15 +43,13 @@ use Illuminate\Database\Eloquent\Model;
 class KnowledgebaseTableSeeder extends Seeder
 {
     /**
-     * Run the LaSalleCRM database seeds.
+     * Run the Knowledge Base database seeds.
      *
      * @return void
      */
     public function run()
     {
         Model::unguard();
-
-        // lookup_address_type table
 
         Kb_lookup_category::create([
             'title'       => 'General',

@@ -136,7 +136,7 @@ class CreateKnowledgebaseTables extends Migration
             $table->dropForeign('kb_lookup_categories_updated_by_foreign');
             $table->dropForeign('kb_lookup_categories_locked_by_foreign');
         });
-        Schema::dropIfExists('lookup_address_types');
+        Schema::dropIfExists('kb_lookup_categories');
 
 
         ///////////////////////////////////////////////////////////////////////
