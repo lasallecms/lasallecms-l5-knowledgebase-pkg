@@ -80,13 +80,15 @@
 
                                             <td>
                                                 {{-- DELETE BUTTON --}}
-                                                {!! Form::open(array('url' => 'admin/kbitems/' . $record->id)) !!}
-                                                {!! Form::model($record, array('route' => array('admin.kbitems.destroy', $record->id), 'method' => 'DELETE')) !!}
-                                                <button type="submit" class="btn btn-danger btn-xs" data-confirm="Do you really want to DELETE the {!! strtoupper($record->title) !!} knowledge base item?">
-                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                <form method="POST" action="{{{ Config::get('app.url') }}}/index.php/admin/kbitems/confirmDeletion/{{ $record->id }}" accept-charset="UTF-8">
+                                                {{{ csrf_field() }}}
+
+                                                <button type="submit" class="btn btn-danger btn-xs">
+                                                <i class="glyphicon glyphicon-remove"></i>
                                                 </button>
 
-                                                {!! Form::close() !!}
+                                                </form>
+
                                             </td>
                                         </tr>
                                     </table>
