@@ -37,7 +37,9 @@ Route::group(array('prefix' => 'admin'), function()
 {
     // Regular tables
     Route::resource('kbitems', 'AdminKBItemsController');
+    Route::post('kbitems/confirmDeletion/{id}', 'AdminKBItemsController@confirmDeletion');
 
     // Lookup Tables
     Route::resource('lukbcategories', 'AdminLookupKbCategoriesController');
+    Route::post('lukbcategories/confirmDeletion/{id}', 'AdminLookupKbCategoriesController@confirmDeletion');
 });
