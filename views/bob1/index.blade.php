@@ -27,7 +27,7 @@
 				@foreach ($records as $record)
 					@if ($record->kb_category_id != $catId)
 					    {{--*/ $catId = $record->kb_category_id /*--}}
-					    <option value="{{{ Config::get('app.url') }}}/admin/kbitems#{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}">{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}</option>
+					    <option value="{{{ Request::url() }}}#{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}">{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}</option>
 					@endif
 				@endforeach
 				</select>​
