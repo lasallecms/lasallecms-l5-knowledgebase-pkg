@@ -26,7 +26,7 @@
 				<option>Goto Category</option>
 				@foreach ($records as $record)
 					@if ($record->kb_category_id != $catId)
-					    <option value="{{{ Config::get('app.url') }}}/index.php/admin/kbitems#{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}">{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}</option>
+					    <option value="{{{ Config::get('app.url') }}}/admin/kbitems#{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}">{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}</option>
 					@endif
 				@endforeach
 				</select>​
