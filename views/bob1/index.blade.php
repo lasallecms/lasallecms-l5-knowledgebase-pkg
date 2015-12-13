@@ -23,9 +23,10 @@
 				{{-- http://laravel-recipes.com/recipes/256/assigning-a-variable-in-a-blade-template --}}
 				{{--*/ $catId = 0 /*--}}
 				<select id="foo">
-				<option>Goto Category</option>
+				<option>Go To Category (this page only)</option>
 				@foreach ($records as $record)
 					@if ($record->kb_category_id != $catId)
+					    {{--*/ $catId = $record->kb_category_id /*--}}
 					    <option value="{{{ Config::get('app.url') }}}/admin/kbitems#{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}">{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}</option>
 					@endif
 				@endforeach
@@ -58,6 +59,8 @@
                     @if (count($records) > 0 )
 
                         {!! $HTMLHelper::adminCreateButton('kbitems', 'kb_item', 'right') !!}
+
+                        {!! $records->render() !!}
 
                         {{-- http://laravel-recipes.com/recipes/256/assigning-a-variable-in-a-blade-template --}}
                         {{--*/ $catId = 0 /*--}}
