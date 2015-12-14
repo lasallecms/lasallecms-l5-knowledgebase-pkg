@@ -22,12 +22,12 @@
 			@if (count($records) > 0 )
 				{{-- http://laravel-recipes.com/recipes/256/assigning-a-variable-in-a-blade-template --}}
 				{{--*/ $catId = 0 /*--}}
-				<select id="foo">
+				<select id="foo" class="btn btn-info" style="font-size:120%;font-weight: 500;">
 				<option>Go To Category (this page only)</option>
 				@foreach ($records as $record)
 					@if ($record->kb_category_id != $catId)
 					    {{--*/ $catId = $record->kb_category_id /*--}}
-					    <option value="{{{ Request::url() }}}#{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}">{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}</option>
+					    <option style="border-bottom: grey solid 1px;" value="{!! $fullURL !!}#{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}">{!! $HTMLHelper::getTitleById('kb_lookup_categories', $record->kb_category_id) !!}</option>
 					@endif
 				@endforeach
 				</select>​

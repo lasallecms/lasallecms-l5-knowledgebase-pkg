@@ -41,6 +41,9 @@ use Lasallecms\Formhandling\AdminFormhandling\AdminFormBaseController;
 //use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
 use Lasallecms\Helpers\HTML\HTMLHelper;
 
+// Laravel Classes
+use Illuminate\Routing\UrlGenerator;
+
 // Laravel Facades
 use Illuminate\Support\Facades\Session;
 
@@ -63,12 +66,20 @@ use Lasallecms\Knowledgebase\Models\Kb_item as Model;
  */
 class AdminKBItemsController extends AdminFormBaseController
 {
+    /**
+     * The URL generator class.
+     *
+     * @var \Illuminate\Routing\UrlGenerator
+     */
+    protected $urlGenerator;
+
+
     /*
      * @param  Model, as specified above
      * @param  Lasallecms\Lasallecmsapi\Repositories\BaseRepository
      * @return void
      */
-    public function __construct(Model $model, KnowledgebaseRepository $repository)
+    public function __construct(Model $model, KnowledgebaseRepository $repository, UrlGenerator $urlGenerator)
     {
         // execute AdminController's construct method first in order to run the middleware
         parent::__construct();
@@ -81,6 +92,9 @@ class AdminKBItemsController extends AdminFormBaseController
 
         // Inject the relevant model into the repository
         $this->repository->injectModelIntoRepository($this->model->model_namespace."\\".$this->model->model_class);
+
+        // Inject the UrlGenerator class
+        $this->urlGenerator = $urlGenerator;
     }
 
 
@@ -117,7 +131,11 @@ class AdminKBItemsController extends AdminFormBaseController
                 'records'                      => $this->repository->listItemsByCategory(),
                 'HTMLHelper'                   => HTMLHelper::class,
                 'Form'                         => Form::class,
+                'fullURL'                      => $this->urlGenerator->full(),
             ]);
+
+
+/* ADMIN FORM AUTOMATION VIEW --> BUT WE ARE USING A CUSTOM VIEW
 
         return view('formhandling::adminformhandling/' . config('lasallecmsadmin.admin_template_name') . '/index',
             [
@@ -136,5 +154,7 @@ class AdminKBItemsController extends AdminFormBaseController
                 'Config'                       => Config::class,
                 'Form'                         => Form::class,
             ]);
+
+*/
     }
 }
