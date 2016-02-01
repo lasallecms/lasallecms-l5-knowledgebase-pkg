@@ -38,6 +38,8 @@ Route::group(array('prefix' => 'admin'), function()
     // Regular tables
     Route::resource('kbitems', 'AdminKBItemsController');
     Route::post('kbitems/confirmDeletion/{id}', 'AdminKBItemsController@confirmDeletion');
+    Route::post('kbitems/confirmDeletionMultipleRows', 'AdminKBItemsController@confirmDeletionMultipleRows');
+    Route::post('kbitems/destroyMultipleRecords', 'AdminKBItemsController@destroyMultipleRecords');
 
     // Lookup Tables
     Route::resource('lukbcategories', 'AdminLookupKbCategoriesController');
