@@ -9,7 +9,7 @@ Knowledge Base package for the LaSalle Content Management System. Requires my La
 ```
 {
     "require": {
-        "lasallecms/knowledgebase": "0.9.*",
+        "lasallecms/knowledgebase": "1.*",
     }
 }
 ```
