@@ -1,6 +1,6 @@
 <?php
 
-namespace Lasallecms\Knowledgebase\Listeners\Kb_items;
+namespace Lasallecms\Knowledgebase\AdminFormProcessing\Kb_items;
 
 /**
  *
@@ -49,22 +49,19 @@ namespace Lasallecms\Knowledgebase\Listeners\Kb_items;
 ///////////////////////////////////////////////////////////////////
 
 
-
 // LaSalle Software
-//use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
-use Lasallecms\Knowledgebase\Repositories\KnowledgebaseRepository;
-use Lasallecms\Lasallecmsapi\FormProcessing\BaseFormProcessing;
-
+use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
+use Lasallecms\Lasallecmsadmin\FormProcessing\BaseFormProcessing;
 
 /*
- * Process a new record.
+ * Process a deletion.
  *
  * FYI: BaseFormProcessing implements the FormProcessing interface.
  */
-class CreateKb_itemFormProcessing extends BaseFormProcessing
+class DeleteKb_itemFormProcessing extends BaseFormProcessing
 {
     /*
-     * Instance of the BASE repository
+     * Instance of repository
      *
      * @var Lasallecms\Lasallecmsapi\Repositories\BaseRepository
      */
@@ -82,7 +79,7 @@ class CreateKb_itemFormProcessing extends BaseFormProcessing
      *
      * @var string
      */
-    protected $type = "create";
+    protected $type = "destroy";
 
     ///////////////////////////////////////////////////////////////////
     /// SPECIFY THE FULL NAMESPACE AND CLASS NAME OF THE MODEL      ///
@@ -95,8 +92,6 @@ class CreateKb_itemFormProcessing extends BaseFormProcessing
     protected $namespaceClassnameModel = "Lasallecms\Knowledgebase\Models\Kb_item";
 
 
-
-
     ///////////////////////////////////////////////////////////////////
     ///   USUALLY THERE IS NOTHING ELSE TO MODIFY FROM HERE ON IN   ///
     ///////////////////////////////////////////////////////////////////
@@ -105,9 +100,9 @@ class CreateKb_itemFormProcessing extends BaseFormProcessing
     /*
      * Inject the model
      *
-     * @param Lasallecms\Lasallecmsapi\Repositories\BaseRepository
+     * @param  Lasallecms\Lasallecmsapi\Repositories\BaseRepository
      */
-    public function __construct(KnowledgebaseRepository $repository)
+    public function __construct(BaseRepository $repository)
     {
         $this->repository = $repository;
 
@@ -116,56 +111,24 @@ class CreateKb_itemFormProcessing extends BaseFormProcessing
 
 
     /*
-     * The form processing steps.
+     * The processing steps.
      *
-     * @param  object  $createCommand   The command bus object
-     * @return array                    The custom response array
+     * @param  The command bus object   $deletePostCommand
+     * @return The custom response array
      */
-    public function quarterback($createCommand)
+    public function quarterback($id)
     {
-        // Convert the command bus object into an array
-        $data = (array) $createCommand;
-
-
-
-        // AH, some custom action here! There's some special handling that is unique to the knowledge base.
-        // So, let's get that done now, so all the fields then undergo the usual processing
-        $data = $this->repository->specialDataHandling($data);
-
-
-
-        // Sanitize
-        $data = $this->sanitize($data, $this->type);
-
-
-        // Validate
-        if ($this->validate($data, $this->type) != "passed")
+        // DELETE record
+        if (!$this->persist($id, $this->type))
         {
-            // Prepare the response array, and then return to the form with error messages
-            return $this->prepareResponseArray('validation_failed', 500, $data, $this->validate($data, $this->type));
-        }
-
-        // Even though we already sanitized the data, we further "wash" the data
-        $data = $this->wash($data);
-
-
-        // INSERT record
-        if (!$this->persist($data, $this->type))
-        {
-            // Prepare the response array, and then return to the form with error messages
+            // Prepare the response array, and then return to the edit form with error messages
             // Laravel's https://github.com/laravel/framework/blob/5.0/src/Illuminate/Database/Eloquent/Model.php
             //  does not prepare a MessageBag object, so we'll whip up an error message in the
             //  originating controller
-            return $this->prepareResponseArray('persist_failed', 500, $data);
+            return $this->prepareResponseArray('persist_failed', 500, $id);
         }
 
-
-        // Prepare the response array, and then return to the controller
-        return $this->prepareResponseArray('create_successful', 200, $data);
-
-
-        ///////////////////////////////////////////////////////////////////
-        ///     NO EVENTS ARE SPECIFIED IN THE BASE FORM PROCESSING     ///
-        ///////////////////////////////////////////////////////////////////
+        // Prepare the response array, and then return to the command
+        return $this->prepareResponseArray('create_successful', 200, $id);
     }
 }

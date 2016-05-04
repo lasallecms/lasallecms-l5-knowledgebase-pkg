@@ -131,7 +131,7 @@ class Kb_item extends BaseModel
      *
      * @var string
      */
-    public $namespace_formprocessor = 'Lasallecms\Knowledgebase\Listeners\Kb_items';
+    public $namespace_formprocessor = 'Lasallecms\Knowledgebase\AdminFormProcessing\Kb_items';
 
     /*
      * Class name of the CREATE Form Processor command

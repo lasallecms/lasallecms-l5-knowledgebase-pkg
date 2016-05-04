@@ -1,6 +1,6 @@
 <?php
 
-namespace Lasallecms\Knowledgebase\Listeners\Kb_items;
+namespace Lasallecms\Knowledgebase\AdminFormProcessing\Kb_items;
 
 /**
  *
@@ -51,7 +51,7 @@ namespace Lasallecms\Knowledgebase\Listeners\Kb_items;
 // LaSalle Software
 //use Lasallecms\Lasallecmsapi\Repositories\BaseRepository;
 use Lasallecms\Knowledgebase\Repositories\KnowledgebaseRepository;
-use Lasallecms\Lasallecmsapi\FormProcessing\BaseFormProcessing;
+use Lasallecms\Lasallecmsadmin\FormProcessing\BaseFormProcessing;
 
 /*
  * Process an existing record.
